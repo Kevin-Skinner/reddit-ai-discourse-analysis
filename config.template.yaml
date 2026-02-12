@@ -1,0 +1,90 @@
+# ============================================================
+# Reddit AI Discourse Analysis -- Configuration Template
+# ============================================================
+# Copy this file to config.yaml and fill in your local paths.
+# All pipeline scripts read from config.yaml at runtime.
+# ============================================================
+
+data:
+  # Root directory where DuckDB databases and intermediate files are stored
+  base_dir: "/path/to/your/data"
+
+  # Directories containing Arctic Shift .zst dump files
+  data_roots:
+    - "/path/to/arctic-shift-dumps"
+
+  # Which years of data to process
+  years: [2025]
+
+  # Date range for embedding (epoch timestamps)
+  # Default: July 2025
+  start_date: 1751328000   # July 1, 2025
+  end_date: 1754006400     # Aug 1, 2025
+
+  # Path(s) to a text file listing valid subreddits (one per line)
+  valid_subs_file:
+    - "/path/to/valid_subs.txt"
+
+  # Path to keyword terms file (pickle or text) for AI content filtering
+  keyword_terms_file: "/path/to/keyword_terms.pkl"
+
+  # Temporary directory for DuckDB spill-to-disk
+  tmp_dir: "/tmp/duckdb_tmp"
+
+duckdb:
+  # Paths for DuckDB databases (created by the pipeline)
+  comments_db: "${data.base_dir}/comments.duckdb"
+  posts_db: "${data.base_dir}/posts.duckdb"
+  filtered_posts_db: "${data.base_dir}/ai_keyword_posts.duckdb"
+  filtered_comments_db: "${data.base_dir}/ai_keyword_comments.duckdb"
+  tokenized_posts_db: "${data.base_dir}/tokenized_ai_keyword_posts.duckdb"
+  tokenized_comments_db: "${data.base_dir}/tokenized_ai_keyword_comments.duckdb"
+  vectors_posts_db: "${data.base_dir}/vectors_posts.duckdb"
+  vectors_comments_db: "${data.base_dir}/vectors_comments.duckdb"
+  embeddings_3d_db: "${data.base_dir}/reddit_3d_map.duckdb"
+  schema: "reddit"
+
+model:
+  # HuggingFace model ID for tokenization and embeddings
+  embedding_model: "google/embeddinggemma-300m"
+  max_token_length: 512
+  embedding_batch_size: 64
+  embedding_chunk_size: 10000
+
+umap:
+  n_components: 3
+  n_neighbors: 15
+  min_dist: 0.1
+  metric: "cosine"
+  training_sample: 100000    # Number of documents to train UMAP on
+
+hdbscan:
+  min_cluster_size: 20
+  min_samples: 10
+  metric: "euclidean"
+
+bertopic:
+  min_topic_size: 20
+  top_n_words: 10
+  n_neighbors: 30
+  n_components: 5
+  diversity: 0.5             # MMR diversity for topic representation
+
+analysis:
+  top_n_clusters: 20         # Number of top clusters to model
+  top_m_subreddits: 50       # Number of top subreddits to model
+  min_docs_per_model: 100    # Minimum documents to train a topic model
+  similarity_threshold: 0.5  # Cosine similarity threshold for topic edges
+
+output:
+  results_dir: "./output"
+  topic_models_dir: "./output/topic_models"
+  visualizations_dir: "./output/visualizations"
+  data_exports_dir: "./output/data_exports"
+
+animation:
+  sample_size: 200000
+  fps: 15
+  duration_sec: 50
+  output_file: "./assets/cluster_evolution.gif"
+

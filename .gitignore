@@ -1,0 +1,31 @@
+# Data files (large, not tracked)
+*.duckdb
+*.duckdb.wal
+*.parquet
+*.pkl
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Output directories
+output/
+
+# Media (except the showcase GIF)
+*.gif
+*.mp4
+!assets/cluster_evolution.gif
+
+# Config (contains local paths)
+config.yaml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
