@@ -3,7 +3,7 @@
 https://github.com/user-attachments/assets/33ac1296-fa5e-412f-992f-6d5387a75628
 
 ## Overview
-This project originated as a group effort for INFO 256: Applied Natural Language Processing at UC Berkeley's School of Information. All pipeline code, analysis, and documentation in this repository represent my individual contributions. That said, no work exists in a vacuum--my teammates' ideas, feedback, and collaboration meaningfully shaped the direction and quality of what you see here.
+This project originated as a group effort for INFO 256: Applied Natural Language Processing at UC Berkeley's School of Information. All pipeline code, analysis, and documentation in this repository represent my individual contributions. That said, no work exists in a vacuum--my teammates' ideas, feedback, and collaboration meaningfully shaped the direction and quality of what you see here. This repository is a curated showcase of the pipeline code; development history lives in a separate private working repository.
 
 We built an end-to-end NLP pipeline to analyze how artificial intelligence is discussed across Reddit communities. Starting from raw [Arctic Shift](https://github.com/ArthurHeitmann/arctic_shift) data dumps (compressed JSON archives of Reddit posts and comments), we ingested, filtered, embedded, clustered, and topic-modeled **2.4 million documents** spanning 20,000+ subreddits during July 2025.
 
